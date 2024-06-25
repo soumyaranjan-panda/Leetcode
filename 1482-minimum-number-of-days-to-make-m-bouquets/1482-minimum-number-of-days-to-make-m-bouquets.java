@@ -1,10 +1,11 @@
 class Solution {
     public int minDays(int[] bloomDay, int b, int k) {
-        int s = 0;
+        
         int ans = -1;
         int[] d = Arrays.copyOf(bloomDay, bloomDay.length);
         Arrays.sort(d);
         int e = d[d.length-1];
+        int s = d[0];
         while(s <= e){
             int m = s + (e - s)/2;
             if(bouquets(bloomDay, m, k) >= b){
