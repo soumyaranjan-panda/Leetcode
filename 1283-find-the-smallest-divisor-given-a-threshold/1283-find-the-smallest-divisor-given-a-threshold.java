@@ -1,6 +1,4 @@
 class Solution {
-
-    
     public static int smallestDivisor(int[] nums, int threshold) {
         int n = nums.length; //size of array.
         if(n > threshold) return -1;
@@ -15,7 +13,7 @@ class Solution {
         //Apply binary search:
         while (low <= high) {
             int mid = (low + high) / 2;
-            if (sumByD(nums, mid) <= threshold) {
+            if (sum(nums, mid) <= threshold) {
                 high = mid - 1;
             } else {
                 low = mid + 1;
@@ -23,13 +21,11 @@ class Solution {
         }
         return low;
     }
-    public static int sumByD(int[] nums, int div) {
-        int n = nums.length; //size of array
-        //Find the summation of division values:
+    public static int sum(int[] nums, int div) {
         int sum = 0;
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < nums.length; i++) {
             sum += Math.ceil((double)(nums[i]) / (double)(div));
         }
-        return sum;
+        return (int)sum;
     }
 }
