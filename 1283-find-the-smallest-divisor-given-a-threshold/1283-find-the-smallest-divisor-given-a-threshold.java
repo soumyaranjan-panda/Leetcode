@@ -1,15 +1,10 @@
 class Solution {
     public int smallestDivisor(int[] nums, int threshold) {
-        int n = nums.length; //size of array.
-        if(n > threshold) return -1;
-        //Find the maximum element:
-        int maxi = Integer.MIN_VALUE;
-        for (int i = 0; i < n; i++) {
-            maxi = Math.max(maxi, nums[i]);
-        }
+        int[] a = Arrays.copyOf(nums, nums.length);
         int ans = -1;
-
-        int s = 1, e = maxi;
+        Arrays.sort(a);
+        int s = 1;
+        int e = a[a.length - 1];
         while(s <= e){
             int m = s + (e - s)/2;
             if(sum(nums, m) <= threshold){
