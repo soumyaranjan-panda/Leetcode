@@ -1,5 +1,5 @@
 class Solution {
-    public static int smallestDivisor(int[] nums, int threshold) {
+    public int smallestDivisor(int[] nums, int threshold) {
         int n = nums.length; //size of array.
         if(n > threshold) return -1;
         //Find the maximum element:
@@ -7,19 +7,19 @@ class Solution {
         for (int i = 0; i < n; i++) {
             maxi = Math.max(maxi, nums[i]);
         }
+        int ans = -1;
 
-        int low = 1, high = maxi;
-
-        //Apply binary search:
-        while (low <= high) {
-            int mid = (low + high) / 2;
-            if (sum(nums, mid) <= threshold) {
-                high = mid - 1;
-            } else {
-                low = mid + 1;
+        int s = 1, e = maxi;
+        while(s <= e){
+            int m = s + (e - s)/2;
+            if(sum(nums, m) <= threshold){
+                ans = m;
+                e = m - 1;
+            }else{
+                s = m + 1;
             }
         }
-        return low;
+        return ans;
     }
     public static int sum(int[] nums, int div) {
         int sum = 0;
