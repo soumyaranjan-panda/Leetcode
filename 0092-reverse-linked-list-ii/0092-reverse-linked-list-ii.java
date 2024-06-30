@@ -17,16 +17,12 @@ class Solution {
         ListNode dummy = new ListNode(0);
         dummy.next = head;
         ListNode prev = dummy;
-
-        // Move prev to the node just before the left position
         for (int i = 0; i < left - 1; i++) {
             prev = prev.next;
         }
 
         ListNode pres = prev.next;
         ListNode next = pres.next;
-
-        // Perform the reversal
         for (int i = 0; i < right - left; i++) {
             pres.next = next.next;
             next.next = prev.next;
