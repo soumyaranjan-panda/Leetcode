@@ -2,23 +2,22 @@ class Solution {
     public List<String> letterCombinations(String digits) {
         return helper("", digits);
     }
-    public List<String> helper(String p, String up){
-        if(up.isEmpty()){
-            List<String> list = new ArrayList<String>();
+    public ArrayList<String> helper(String p, String up){
+        if (up.isEmpty()){
             if(p.isEmpty()){
-                return list;
+                return new ArrayList<>();
             }else{
+                ArrayList<String> list = new ArrayList<>();
                 list.add(p);
                 return list;
             }
         }
-        List<String> list = new ArrayList<String>();
         int n = up.charAt(0) - '0';
         String s = lettersOfNumber(n);
-        for(int i = 0; i < s.length(); i++){
+        ArrayList<String> list = new ArrayList<>();
+        for (int i = 0; i < s.length(); i++) {
             char ch = s.charAt(i);
-            List<String> list1 = helper(p+ch, up.substring(1));
-            list.addAll(list1);
+            list.addAll(helper(p+ch, up.substring(1)));
         }
         return list;
     }
