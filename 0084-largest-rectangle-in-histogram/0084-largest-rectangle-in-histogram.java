@@ -1,38 +1,27 @@
 class Solution {
-    public int largestRectangleArea(int[] heights) {
-        Stack<Integer> s = new Stack<>();
-        int[] l = new int[heights.length];
-        int[] r = new int[heights.length];
-        int[] ans = new int[heights.length];
-        for (int i = 0; i < heights.length; i++) {
-            while (!s.isEmpty() && heights[s.peek()] >= heights[i]) {
-                s.pop();
+    public int largestRectangleArea(int[] arr){
+        Stack<Integer> stackL = new Stack<>();
+        Stack<Integer> stackR = new Stack<>();
+        int[] leftSmall = new int[arr.length];
+        int[] rightSmall = new int[arr.length];
+        for (int i = 0; i < arr.length; i++) {
+            int j = arr.length - i - 1;
+            while(!stackL.empty() && arr[stackL.peek()] >= arr[i]){
+                stackL.pop();
             }
-            if (s.isEmpty()) {
-                l[i] = -1;
-            } else {
-                l[i] = s.peek();
+            while(!stackR.empty() && arr[stackR.peek()] >= arr[j]){
+                stackR.pop();
             }
-            s.push(i);
+            leftSmall[i] = stackL.empty() ? 0 : stackL.peek() + 1;
+            stackL.push(i);
+            rightSmall[j] = stackR.empty() ? arr.length - 1 : stackR.peek() - 1;
+            stackR.push(j);
         }
-        s.clear();
-        for (int i = heights.length - 1; i >= 0; i--) {
-            while (!s.isEmpty() && heights[s.peek()] >= heights[i]) {
-                s.pop();
-            }
-            if (s.isEmpty()) {
-                r[i] = heights.length;
-            } else {
-                r[i] = s.peek();
-            }
-            s.push(i);
+        int maxArea = -1;
+        for (int i = 0; i < arr.length; i++) {
+            int w = rightSmall[i] - leftSmall[i] + 1;
+            maxArea = Math.max(maxArea, w*arr[i]);
         }
-        int max = 0;
-        for (int i = 0; i < heights.length; i++) {
-            int width = r[i] - l[i] - 1;
-            max = Math.max(width * heights[i], max);
-        }
-        return max;
-
+        return maxArea;
     }
 }
